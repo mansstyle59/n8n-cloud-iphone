@@ -1,0 +1,43 @@
+services:
+  n8n:
+    image: docker.n8n.io/n8nio/n8n:stable
+    restart: unless-stopped
+    environment:
+      TZ: ${TZ:-Europe/Paris}
+      GENERIC_TIMEZONE: ${GENERIC_TIMEZONE:-Europe/Paris}
+      N8N_HOST: ${N8N_HOST:-localhost}
+      N8N_PORT: 5678
+      N8N_PROTOCOL: ${N8N_PROTOCOL:-http}
+      WEBHOOK_URL: ${WEBHOOK_URL:-http://localhost:5678/}
+      N8N_ENCRYPTION_KEY: ${N8N_ENCRYPTION_KEY:?Set a long random N8N_ENCRYPTION_KEY in .env}
+      N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS: "true"
+      N8N_SECURE_COOKIE: ${N8N_SECURE_COOKIE:-false}
+      N8N_DIAGNOSTICS_ENABLED: "false"
+      N8N_PERSONALIZATION_ENABLED: "false"
+      N8N_RUNNERS_ENABLED: "true"
+    volumes:
+      - n8n_data:/home/node/.n8n
+    expose:
+      - "5678"
+    healthcheck:
+      test: ["CMD-SHELL", "node -e \"fetch('http://127.0.0.1:5678/healthz').then(r=>process.exit(r.ok?0:1)).catch(()=>process.exit(1))\""]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 60s
+
+  # Optional public HTTPS access through a Cloudflare Tunnel.
+  # Create a Tunnel in the Cloudflare dashboard and set TUNNEL_TOKEN in .env.
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    environment:
+      TUNNEL_TOKEN: ${TUNNEL_TOKEN:?Set TUNNEL_TOKEN only after creating a Cloudflare Tunnel}
+    depends_on:
+      n8n:
+        condition: service_healthy
+    profiles: ["public"]
+
+volumes:
+  n8n_data:
