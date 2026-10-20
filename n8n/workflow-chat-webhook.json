@@ -1,5 +1,5 @@
 {
-  "name": "Orbit Chat — Webhook de démonstration",
+  "name": "Orbit Chat — Webhook de démonstration (non IA)",
   "nodes": [
     {
       "parameters": {
@@ -7,7 +7,7 @@
         "path": "orbit-chat",
         "responseMode": "lastNode",
         "options": {
-          "allowedOrigins": "*"
+          "allowedOrigins": "https://mansstyle59.github.io"
         }
       },
       "id": "a1d2c3e4-1111-4111-8111-111111111111",
