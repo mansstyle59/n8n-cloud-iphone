@@ -48,7 +48,9 @@ Le dépôt inclut maintenant :
 
 ### Lancement
 
-1. Ouvrir [Render Blueprint](https://dashboard.render.com/blueprints) depuis le compte Render lié à GitHub.
+**[Déployer le Blueprint sur Render](https://render.com/deploy?repo=https://github.com/mansstyle59/n8n-cloud-iphone)** — ouvre l'assistant officiel Render pour ce dépôt.
+
+1. Ouvrir [Render Blueprint](https://dashboard.render.com/blueprints) depuis le compte Render lié à GitHub si le lien direct ne fonctionne pas.
 2. Choisir le dépôt `mansstyle59/n8n-cloud-iphone` et le fichier `render.yaml`.
 3. Examiner le plan affiché avant de confirmer : le Blueprint est prévu en `free`.
 4. Attendre la fin du déploiement, puis ouvrir l'URL du service Render et créer le compte propriétaire n8n.
