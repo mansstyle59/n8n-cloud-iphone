@@ -31,3 +31,9 @@ Le workflow fourni est un squelette pédagogique : il reçoit un message et renv
 - connexion configurable à un webhook n8n ;
 - indicateur d'état de connexion ;
 - interface adaptée aux écrans mobiles.
+
+## Déployer le vrai serveur n8n
+
+Un guide de déploiement Docker avec stockage persistant est disponible dans [`deploy/n8n/README.md`](deploy/n8n/README.md), avec `compose.yaml` et `.env.example`.
+
+**Important :** cette configuration prépare l'installation, mais ne crée pas à elle seule un serveur public. Il faut l'exécuter sur un hôte qui accepte les conteneurs Docker et conserve un volume de données. GitHub Pages ne peut pas exécuter n8n. Le workflow d'exemple reste une démonstration sans modèle IA connecté.
