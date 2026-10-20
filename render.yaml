@@ -1,0 +1,40 @@
+# Render Blueprint for an n8n prototype.
+# IMPORTANT: the free web service has ephemeral storage. Workflow data and credentials
+# can be lost when the service restarts/redeploys. For reliable use, configure persistent
+# storage and a durable PostgreSQL database on a plan that supports them.
+services:
+  - type: web
+    name: orbit-n8n-iphone
+    runtime: docker
+    plan: free
+    region: frankfurt
+    branch: main
+    dockerfilePath: ./deploy/n8n/Dockerfile
+    dockerContext: .
+    healthCheckPath: /healthz
+    autoDeploy: true
+    envVars:
+      - key: PORT
+        value: "5678"
+      - key: N8N_PORT
+        value: "5678"
+      - key: N8N_PROTOCOL
+        value: https
+      - key: N8N_HOST
+        value: orbit-n8n-iphone.onrender.com
+      - key: WEBHOOK_URL
+        value: https://orbit-n8n-iphone.onrender.com/
+      - key: N8N_EDITOR_BASE_URL
+        value: https://orbit-n8n-iphone.onrender.com/
+      - key: N8N_ENCRYPTION_KEY
+        generateValue: true
+      - key: N8N_SECURE_COOKIE
+        value: "true"
+      - key: N8N_DIAGNOSTICS_ENABLED
+        value: "false"
+      - key: N8N_PERSONALIZATION_ENABLED
+        value: "false"
+      - key: GENERIC_TIMEZONE
+        value: Europe/Paris
+      - key: TZ
+        value: Europe/Paris
